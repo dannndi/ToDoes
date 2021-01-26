@@ -20,12 +20,13 @@ if ($password != $confirm_password) {
     if ($result) {
         $r = $database_connection->prepare("SELECT * FROM `tb_user` WHERE `email` = ? ;");
         $r->execute([$email]);
-        $user = $r->fetchAll();
+        $user = $r->fetch();
         echo var_dump($user);
         $_SESSION["userid"] = $user["id"];
         $_SESSION["username"] = $user["nama_lengkap"];
         $_SESSION["isLogin"] = true;
         header("Location: ../dashboard.php");
+        return;
     } else {
         echo "<script type='text/javascript'>
         alert('Email telah di gunakan');
